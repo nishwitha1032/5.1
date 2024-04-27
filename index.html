@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fashionista</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 0; }
+    header { background: black; color: white; padding: 10px 20px; text-align: center; }
+    #cart { position: fixed; top: 20px; right: 20px; background: orange; color: white; padding: 5px; }
+    .product { float: left; width: 19%; padding: 10px; box-sizing: border-box; margin: 0.5%; background: white; text-align: center; }
+    img { width: 100%; }
+    button { background: orange; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; }
+    #search { margin: 10px; padding: 10px; width: 95%; }
+    #contact, #checkout { margin: 10px; width: calc(50% - 20px); float: left; }
+</style>
+</head>
+<body>
+<header>
+    <h1>Fashionista</h1>
+</header>
+
+<div id="cart">Cart: $0</div>
+
+<label for="search" style="display: block; margin: 10px;">Search for products:</label>
+<input type="text" id="search" placeholder="Enter product name..." title="Search for products">
+
+<div id="products">
+    <!-- Products will be added here by JavaScript -->
+</div>
+
+<button id="contact">Contact Us</button>
+<button id="checkout">Checkout</button>
+
+<script>
+    var products = [
+        { id: 1, name: "Fashion Jacket", price: 120, image: "link-to-image1.jpg" },
+        { id: 2, name: "Trendy Skirt", price: 50, image: "link-to-image2.jpg" },
+        { id: 3, name: "Cool Jeans", price: 90, image: "link-to-image3.jpg" },
+        { id: 4, name: "Evening Dress", price: 150, image: "link-to-image4.jpg" },
+        { id: 5, name: "Casual Shirt", price: 60, image: "link-to-image5.jpg" },
+        { id: 6, name: "Stylish Hat", price: 40, image: "link-to-image6.jpg" },
+        { id: 7, name: "Leather Boots", price: 200, image: "link-to-image7.jpg" },
+        { id: 8, name: "Smart Watch", price: 300, image: "link-to-image8.jpg" },
+        { id: 9, name: "Sunglasses", price: 100, image: "link-to-image9.jpg" },
+        { id: 10, name: "Tie", price: 20, image: "link-to-image10.jpg" }
+    ];
+
+    var cartTotal = 0;
+
+    function addToCart(price) {
+        cartTotal += price;
+        document.getElementById('cart').innerHTML = 'Cart: $' + cartTotal;
+    }
+
+    function showProducts(products) {
+        var productsHTML = '';
+        products.forEach(function(product) {
+            productsHTML +=
+                '<div class="product">' +
+                '<img src="' + product.image + '" alt="' + product.name + '">' +
+                '<h3>' + product.name + '</h3>' +
+                '<p>$' + product.price + '</p>' +
+                '<button onclick="addToCart(' + product.price + ')">Add to Cart</button>' +
+                '</div>';
+        });
+        document.getElementById('products').innerHTML = productsHTML;
+    }
+
+    showProducts(products);
+
+    document.getElementById('search').addEventListener('input', function(e) {
+        var searchText = e.target.value.toLowerCase();
+        var filteredProducts = products.filter(function(product) {
+            return product.name.toLowerCase().includes(searchText);
+        });
+        showProducts(filteredProducts);
+    });
+</script>
+</body>
+</html>
